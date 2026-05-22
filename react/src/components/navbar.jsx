@@ -1,6 +1,6 @@
 import { searchAnimes } from "../api/apiAnimes";
 import { useState, useEffect, useCallback } from "react";
-export function Navbar({ setPage, token, onLogout, setId }) {
+export function Navbar({ setIdPage, token, onLogout }) {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -31,11 +31,11 @@ export function Navbar({ setPage, token, onLogout, setId }) {
       </div>
 
       <nav className="menu">
-        <a onClick={() => setPage("dashboard")}>Animes</a>
-        <a onClick={() => setPage("filmes")}>Filmes</a>
-        <a onClick={() => setPage("pedir")}>Pedir Anime</a>
-        {!token && <a onClick={() => setPage("login")}>Login</a>}
-        {!token && <a onClick={() => setPage("cadastro")}>Cadastro</a>}
+        <a onClick={() => setIdPage({ page: "dashboard", id: 0 })}>Animes</a>
+        <a onClick={() => setIdPage({ page: "dashboard", id: 0 })}>Filmes</a>
+        <a onClick={() => setIdPage({ page: "dashboard", id: 0 })}>Pedir Anime</a>
+        {!token && <a onClick={() => setIdPage({ page: "login", id: 0 })}>Login</a>}
+        {!token && <a onClick={() => setIdPage({ page: "cadastro", id: 0 })}>Cadastro</a>}
         {token && <a onClick={onLogout}>Logout</a>}
       </nav>
 
@@ -55,8 +55,7 @@ export function Navbar({ setPage, token, onLogout, setId }) {
                key={anime.node.id}
                 className="anime-link"
                 onClick={() => {
-                  setId(anime.node.id)
-                  setPage("anime")
+                  setIdPage({ page: "anime", id: anime.node.id })
                 }}
               >
                 <div className="anime-item">

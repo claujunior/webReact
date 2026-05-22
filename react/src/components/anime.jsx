@@ -8,8 +8,8 @@ export function AnimeView({ id }) {
       try {
         if (!id) return
         const data = await searchId(id);
+        console.log(data)
         setAnime(data);
-        console.log(anime)
       } catch (error) {
         console.log(error);
       }

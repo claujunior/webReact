@@ -7,9 +7,8 @@ import { Dashboard } from "./components/dashboard.jsx";
 import { AnimeView } from "./components/anime.jsx";
 
 export default function App() {
-  const [page, setPage] = useState("dashboard");
   const [token, setToken] = useState(() => localStorage.getItem("token"));
-  const [id,setId] = useState(0)
+  const [idPage, setIdPage] = useState({ page: "dashboard", id: 0 });
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
@@ -19,25 +18,24 @@ export default function App() {
 
 
   const renderPage = () => {
-    switch (page) {
+    switch (idPage.page) {
       case "login":
-        return <LoginPage setPage={setPage} setToken={setToken} />;
+        return <LoginPage setIdPage={setIdPage} setToken={setToken} />;
       case "cadastro":
-        return <CadastroPage setPage={setPage} />;
+        return <CadastroPage setIdPage={setIdPage} />;
       case "anime":
-        return <AnimeView id={id}/>;
+        return <AnimeView id={idPage.id}/>;
       default:
-        return <Dashboard setPage={setPage} setId={setId}/>;
+        return <Dashboard setIdPage={setIdPage} />;
     }
   };
 
   return (
     <>
       <Navbar
-        setPage={setPage}
+        setIdPage={setIdPage}
         token={token}
         onLogout={handleLogout}
-        setId={setId}
       />
       {renderPage()}
     </>

@@ -14,7 +14,7 @@ function AnimeCard({ anime }) {
 
 
 
-export function Dashboard({ setPage, setId }) {
+export function Dashboard({ setIdPage }) {
   const [animes, setAnimes] = useState([]);
   const [page, setPage1] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -51,8 +51,7 @@ export function Dashboard({ setPage, setId }) {
                 key={anime.node.id}
                 className="anime-link"
                 onClick={() => {
-                  setId(anime.node.id)
-                  setPage("anime")
+                  setIdPage({ page: "anime", id: anime.node.id })
                 }}
               >
             <AnimeCard anime={anime} />

@@ -1,6 +1,6 @@
 import { apiCadastro } from "../api/apiCadastro";
 import { useState } from "react";
-export function CadastroPage({ setPage }) {
+export function CadastroPage({ setIdPage }) {
   const [username, setUsername] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -15,7 +15,7 @@ export function CadastroPage({ setPage }) {
     try {
       await apiCadastro(username, password1);
       alert("Cadastro feito.");
-      setPage("dashboard");
+      setIdPage({ page: "dashboard", id: 0 })
     } catch (err) {
       setErro(err.message);
     }

@@ -1,7 +1,7 @@
 import { apiLogin } from "../api/apiLogin";
 import { useState } from "react";
 
-export function LoginPage({ setPage, setToken }) {
+export function LoginPage({ setIdPage, setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [erro, setErro] = useState("");
@@ -12,7 +12,7 @@ export function LoginPage({ setPage, setToken }) {
       const data = await apiLogin(username, password);
       localStorage.setItem("token", data.access_token);
       setToken(data.access_token);
-      setPage("dashboard");
+      setIdPage({ page: "dashboard", id: 0 })
     } catch (err) {
       setErro(err.message);
     }

@@ -14,9 +14,9 @@ function AnimeCard({ anime }) {
 
 
 
-export function Dashboard() {
+export function Dashboard({ setPage, setId }) {
   const [animes, setAnimes] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage1] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const carregarAnimes = useCallback(async (p) => {
@@ -35,8 +35,8 @@ export function Dashboard() {
     carregarAnimes(page);
   }, [page, carregarAnimes]);
 
-  const irPrev = () => { if (page > 1) setPage((p) => p - 1); };
-  const irNext = () => setPage((p) => p + 1);
+  const irPrev = () => { if (page > 1) setPage1((p) => p - 1); };
+  const irNext = () => setPage1((p) => p + 1);
 
   return (
     <main className="main">
@@ -45,9 +45,20 @@ export function Dashboard() {
         <p style={{ color: "var(--text-secondary)", padding: "2rem" }}>Carregando...</p>
       ) : (
         <div className="animes-grid">
+         
           {animes.map((anime) => (
-            <AnimeCard key={anime.node.id} anime={anime} />
+            <button
+                key={anime.node.id}
+                className="anime-link"
+                onClick={() => {
+                  setId(anime.node.id)
+                  setPage("anime")
+                }}
+              >
+            <AnimeCard anime={anime} />
+            </button>
           ))}
+          
         </div>
       )}
       <div className="paginacao">

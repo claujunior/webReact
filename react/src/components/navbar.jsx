@@ -1,6 +1,6 @@
 import { searchAnimes } from "../api/apiAnimes";
 import { useState, useEffect, useCallback } from "react";
-export function Navbar({ setPage, token, onLogout}) {
+export function Navbar({ setPage, token, onLogout, setId }) {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -49,14 +49,24 @@ export function Navbar({ setPage, token, onLogout}) {
         />
         {searchResults.length > 0 && query.length > 2 && (
           <div className="results">
+
             {searchResults.map((anime) => (
-              <div key={anime.node.id} className="anime-item">
-                <img
-                  src={anime.node.main_picture?.medium}
-                  alt={anime.node.title}
-                />
-                <h3>{anime.node.title}</h3>
-              </div>
+              <button
+               key={anime.node.id}
+                className="anime-link"
+                onClick={() => {
+                  setId(anime.node.id)
+                  setPage("anime")
+                }}
+              >
+                <div className="anime-item">
+                  <img
+                    src={anime.node.main_picture?.medium}
+                    alt={anime.node.title}
+                  />
+                  <h3>{anime.node.title}</h3>
+                </div>
+              </button>
             ))}
           </div>
         )}

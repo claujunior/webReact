@@ -4,12 +4,12 @@ import { CadastroPage } from "./components/cadastro.jsx";
 import { LoginPage } from "./components/login.jsx";
 import { Navbar } from "./components/navbar.jsx";
 import { Dashboard } from "./components/dashboard.jsx";
-
+import { AnimeView } from "./components/anime.jsx";
 
 export default function App() {
   const [page, setPage] = useState("dashboard");
   const [token, setToken] = useState(() => localStorage.getItem("token"));
-
+  const [id,setId] = useState(0)
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
@@ -24,8 +24,10 @@ export default function App() {
         return <LoginPage setPage={setPage} setToken={setToken} />;
       case "cadastro":
         return <CadastroPage setPage={setPage} />;
+      case "anime":
+        return <AnimeView id={id}/>;
       default:
-        return <Dashboard />;
+        return <Dashboard setPage={setPage} setId={setId}/>;
     }
   };
 
@@ -35,6 +37,7 @@ export default function App() {
         setPage={setPage}
         token={token}
         onLogout={handleLogout}
+        setId={setId}
       />
       {renderPage()}
     </>
